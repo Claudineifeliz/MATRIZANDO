@@ -1,0 +1,11 @@
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/*
+!.vscode/extensions.json
+
+# Dependências e build
+node_modules/
+dist/

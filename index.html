@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#060607">
+  <meta name="description" content="MATRIZANDO — Laboratório interativo de Álgebra Linear com visualização dinâmica e mentores virtuais.">
+  <title>MATRIZANDO | Laboratório Interativo de Álgebra Linear</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/welcome.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/modules.css">
+
+  <!-- Núcleo & Persistência -->
+  <script src="assets/js/core/store.js" defer></script>
+  <script src="assets/js/core/welcome.js" defer></script>
+  <script src="assets/js/core/charts.js" defer></script>
+  <script src="assets/js/modules/modules.js" defer></script>
+
+  <!-- Motores Matemáticos -->
+  <script src="assets/js/crypto/matrix.js" defer></script>
+  <script src="assets/js/crypto/hill.js" defer></script>
+  <script src="assets/js/lab/lab-math.js" defer></script>
+
+  <!-- Interfaces dos 6 Módulos -->
+  <script src="assets/js/crypto/crypto-ui.js" defer></script>
+  <script src="assets/js/lab/lab-ui.js" defer></script>
+  <script src="assets/js/modules/investigation-ui.js" defer></script>
+  <script src="assets/js/modules/transformations-ui.js" defer></script>
+  <script src="assets/js/modules/challenges-ui.js" defer></script>
+  <script src="assets/js/modules/learning-ui.js" defer></script>
+
+  <!-- Agentes Pedagógicos Imersivos & Navegação -->
+  <script src="assets/js/core/agents.js" defer></script>
+  <script src="assets/js/navigation.js" defer></script>
+  <script src="assets/js/main.js" defer></script>
+</head>
+<body class="intro-active">
+  <!-- Tela de Boas-Vindas Cinematográfica com Campo Magnético Interativo -->
+  <section class="welcome-intro" id="welcomeIntro" aria-label="Tela de boas-vindas MATRIZANDO">
+    <canvas class="welcome-magnet-canvas" id="welcomeMagnetCanvas" aria-hidden="true"></canvas>
+    <div class="welcome-vignette" aria-hidden="true"></div>
+    <div class="welcome-scanlines" aria-hidden="true"></div>
+    <div class="welcome-cursor-halo" id="welcomeCursorHalo" aria-hidden="true"></div>
+
+    <header class="welcome-hud-top">
+      <div class="welcome-hud-brand">
+        <span class="rog-slashes" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+        <span class="welcome-hud-title">MATRIZANDO</span>
+        <span class="welcome-hud-badge">/ 2026</span>
+      </div>
+      <div class="welcome-hud-status">
+        <span class="welcome-hud-pill">SYSTEM READY</span>
+        <span class="welcome-hud-coords" id="welcomeCoords">X: 000 · Y: 000</span>
+      </div>
+    </header>
+
+    <div class="welcome-center-stage">
+      <div class="welcome-bracket-frame">
+        <div class="welcome-slashes-center" aria-hidden="true">
+          <span class="rog-slashes"><i></i><i></i><i></i><i></i></span>
+        </div>
+
+        <div class="welcome-scenes" id="welcomeScenes" aria-live="polite">
+          <div class="welcome-scene active" data-scene="0">
+            <span class="welcome-scene-kicker">EXPERIÊNCIA INTERATIVA • ÁLGEBRA LINEAR</span>
+            <h1 class="welcome-scene-title">A MATEMÁTICA<br><span>GANHA MOVIMENTO.</span></h1>
+            <p class="welcome-scene-copy">Onde matrizes deixam de ser tabelas estáticas e se transformam em <strong>criptografia, espaço e precisão geométrica</strong>.</p>
+          </div>
+
+          <div class="welcome-scene" data-scene="1">
+            <span class="welcome-scene-kicker">CAMPOS VETORIAIS • CRIPTOGRAFIA DE HILL • GAUSS-JORDAN</span>
+            <h1 class="welcome-scene-title">DECIFRE CÓDIGOS.<br><span>DOMINE O ESPAÇO.</span></h1>
+            <p class="welcome-scene-copy">Seis laboratórios interativos com <strong>mentores virtuais em tempo real</strong> para visualizar cada transformação passo a passo.</p>
+          </div>
+
+          <div class="welcome-scene" data-scene="2">
+            <span class="welcome-scene-kicker">EDITION 2026 • LABORATÓRIO INTERATIVO DE ÁLGEBRA</span>
+            <h1 class="welcome-scene-title welcome-brand-hero">MATRIZ<span>ANDO</span></h1>
+            <p class="welcome-scene-copy" id="welcomeDynamicSubtitle">Mova o cursor pela tela para interagir com o <strong>campo magnético vetorial</strong> e entre no laboratório principal.</p>
+          </div>
+        </div>
+
+        <div class="welcome-cta-zone">
+          <button type="button" class="welcome-enter-btn" id="enterAppBtn">
+            <span class="welcome-btn-glint" aria-hidden="true"></span>
+            <span class="welcome-btn-dot" aria-hidden="true"></span>
+            <span class="welcome-btn-label">ENTRAR NO LABORATÓRIO</span>
+            <span class="welcome-btn-arrow" aria-hidden="true">→</span>
+          </button>
+        </div>
+
+        <div class="welcome-scene-dots" id="welcomeSceneDots" role="tablist" aria-label="Cenas da apresentação">
+          <button type="button" class="welcome-dot active" data-goto-scene="0" aria-label="Cena 1"></button>
+          <button type="button" class="welcome-dot" data-goto-scene="1" aria-label="Cena 2"></button>
+          <button type="button" class="welcome-dot" data-goto-scene="2" aria-label="Cena 3"></button>
+        </div>
+      </div>
+    </div>
+
+    <footer class="welcome-hud-bottom">
+      <div class="welcome-hint">PASSE O MOUSE PARA ATRAIR AS PARTÍCULAS · CLIQUE PARA PULSO MAGNÉTICO</div>
+      <div class="welcome-progress-track" aria-hidden="true">
+        <span id="welcomeProgressFill"></span>
+      </div>
+      <button type="button" class="welcome-skip-link" id="skipIntroBtn">PULAR INTRO ▸</button>
+    </footer>
+  </section>
+
+  <a class="skip-link" href="#pageContent">Pular diretamente para o conteúdo</a>
+  <div class="sidebar-backdrop" id="sidebarBackdrop" aria-hidden="true"></div>
+
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar" aria-label="Menu lateral">
+      <div class="sidebar-top-row">
+        <a class="brand" href="#inicio" aria-label="MATRIZANDO — Ir para Visão Geral" data-page="inicio" title="MATRIZANDO — Visão Geral">
+          <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+          <span class="brand-name">MATRIZANDO<small>LINEAR EDITION 26</small></span>
+        </a>
+        <button class="sidebar-toggle-btn" id="sidebarToggle" type="button" aria-label="Recolher barra lateral" aria-expanded="true" title="Recolher / expandir barra lateral">
+          <span class="sidebar-toggle-icon" aria-hidden="true">‹</span>
+        </button>
+      </div>
+
+      <nav class="main-nav" aria-label="Navegação principal">
+        <button class="nav-link active" data-page="inicio" data-tooltip="Visão geral" title="Visão geral">
+          <span class="nav-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect class="icon-accent" x="3" y="3" width="8" height="8" rx="2"/>
+              <rect x="13" y="3" width="8" height="5" rx="1.5"/>
+              <rect x="13" y="10" width="8" height="11" rx="2"/>
+              <rect x="3" y="13" width="8" height="8" rx="2"/>
+            </svg>
+          </span>
+          <span class="nav-text">Visão geral</span>
+        </button>
+
+        <div class="nav-section-label">EXPLORAR</div>
+        <button class="nav-link" data-page="criptografia" data-tooltip="Criptografia" title="Criptografia">
+          <span class="nav-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="11" width="16" height="10" rx="2.5"/>
+              <path d="M8 11V7.5a4 4 0 0 1 8 0V11"/>
+              <circle class="icon-accent" cx="12" cy="15.5" r="1.6"/>
+              <path class="icon-accent" d="M12 17.1V18.8"/>
+            </svg>
+          </span>
+          <span class="nav-text">Criptografia</span>
+          <span class="nav-tag" data-nav-status="criptografia">01</span>
+        </button>
+        <button class="nav-link" data-page="investigacao" data-tooltip="Sala de investigação" title="Sala de investigação">
+          <span class="nav-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="10.5" cy="10.5" r="6.8"/>
+              <path d="M15.6 15.6 21 21"/>
+              <path class="icon-accent" d="M10.5 7.4v6.2M7.4 10.5h6.2"/>
+            </svg>
+          </span>
+          <span class="nav-text">Sala de investigação</span>
+          <span class="nav-tag" data-nav-status="investigacao">02</span>
+        </button>
+        <button class="nav-link" data-page="laboratorio" data-tooltip="Laboratório de matrizes" title="Laboratório de matrizes">
+          <span class="nav-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M7 4H4v16h3M17 4h3v16h-3"/>
+              <rect class="icon-accent" x="8.2" y="7.2" width="3" height="3" rx="0.7"/>
+              <rect x="12.8" y="7.2" width="3" height="3" rx="0.7"/>
+              <rect x="8.2" y="13.8" width="3" height="3" rx="0.7"/>
+              <rect class="icon-accent" x="12.8" y="13.8" width="3" height="3" rx="0.7"/>
+            </svg>
+          </span>
+          <span class="nav-text">Laboratório de matrizes</span>
+          <span class="nav-tag" data-nav-status="laboratorio">03</span>
+        </button>
+        <button class="nav-link" data-page="transformacoes" data-tooltip="Transformações visuais" title="Transformações visuais">
+          <span class="nav-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 20V5M4 20h15"/>
+              <path d="M2 7l2-2 2 2M17 18l2 2-2 2"/>
+              <polygon class="icon-accent" points="9,15 12,8 20,6 17,13"/>
+            </svg>
+          </span>
+          <span class="nav-text">Transformações visuais</span>
+          <span class="nav-tag" data-nav-status="transformacoes">04</span>
+        </button>
+
+        <div class="nav-section-label">APRENDER</div>
+        <button class="nav-link" data-page="desafios" data-tooltip="Arena de desafios" title="Arena de desafios">
+          <span class="nav-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M7 4h10v5a5 5 0 0 1-10 0V4Z"/>
+              <path d="M7 6H4.5a2 2 0 0 0 0 4H7M17 6h2.5a2 2 0 0 1 0 4H17"/>
+              <path d="M12 14v5M8.5 20h7"/>
+              <path class="icon-accent" d="M12.4 6.6 10.6 9.5h2l-.6 2.5 2.4-3.1h-2l.4-2.3Z"/>
+            </svg>
+          </span>
+          <span class="nav-text">Arena de desafios</span>
+          <span class="nav-tag" data-nav-status="desafios">05</span>
+        </button>
+        <button class="nav-link" data-page="aprendizagem" data-tooltip="Central de aprendizagem" title="Central de aprendizagem">
+          <span class="nav-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 6.5A2.5 2.5 0 0 1 5.5 4H11a2 2 0 0 1 2 2v14l-1-.6a3.5 3.5 0 0 0-1.8-.5H5.5A2.5 2.5 0 0 1 3 16.4V6.5Z"/>
+              <path d="M21 6.5A2.5 2.5 0 0 0 18.5 4H13a2 2 0 0 0-2 2v14l1-.6a3.5 3.5 0 0 1 1.8-.5h4.7A2.5 2.5 0 0 0 21 16.4V6.5Z"/>
+              <path class="icon-accent" d="M6.5 8.5h2.5M6.5 12h2.5M15 8.5h2.5M15 12h2.5"/>
+            </svg>
+          </span>
+          <span class="nav-text">Central de aprendizagem</span>
+          <span class="nav-tag" data-nav-status="aprendizagem">06</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="xp-sidebar-card" aria-label="Nível e pontos de experiência">
+          <div class="xp-sidebar-top">
+            <span class="xp-title-text">Progresso Geral</span>
+            <span class="xp-badge" id="sidebarXp">0 XP</span>
+          </div>
+          <div class="xp-bar-mini"><span id="sidebarXpBar" style="width: 0%"></span></div>
+          <div class="xp-rank-label" id="sidebarRank">Explorador de Vetores</div>
+        </div>
+
+        <div class="sidebar-user">
+          <div class="avatar" id="userAvatar">ES</div>
+          <div class="sidebar-user-meta">
+            <strong id="userNameDisplay">Estudante</strong>
+            <small id="userRoleDisplay">Explorador matemático</small>
+          </div>
+          <button class="user-edit-btn" id="editUserBtn" title="Personalizar seu nome">Editar</button>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="mobile-menu" id="mobileMenu" aria-label="Abrir menu de navegação" aria-expanded="false">☰</button>
+          <div class="breadcrumb">
+            <span class="breadcrumb-root">MATRIZANDO</span>
+            <b>/</b>
+            <strong id="breadcrumbCurrent">Visão geral</strong>
+          </div>
+        </div>
+
+        <div class="topbar-actions">
+          <div class="ihc-controls" role="group" aria-label="Ajustes de leitura e tema visual">
+            <button class="ihc-btn" data-scale-action="down" title="Diminuir tamanho do texto" aria-label="Diminuir fonte">A−</button>
+            <button class="ihc-btn" data-scale-action="reset" title="Tamanho de texto padrão" aria-label="Fonte padrão">A</button>
+            <button class="ihc-btn" data-scale-action="up" title="Aumentar tamanho do texto" aria-label="Aumentar fonte">A+</button>
+            <div class="theme-picker" id="themePicker">
+              <button class="ihc-btn" id="themeCycleBtn" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="themeMenu" title="Escolher tema visual">◑ Tema ▾</button>
+              <div class="theme-menu" id="themeMenu" role="menu" aria-label="Opções de tema visual" hidden>
+                <div class="theme-menu-head">ESCOLHA O TEMA VISUAL</div>
+                <button class="theme-option" type="button" role="menuitemradio" data-theme-choice="dark" aria-checked="true">
+                  <span class="theme-swatch" aria-hidden="true">
+                    <i style="background:#060607"></i><i style="background:#e0bc72"></i><i style="background:#e10e17"></i>
+                  </span>
+                  <span class="theme-option-copy">
+                    <strong>Escuro</strong>
+                    <small>Preto carbono, dourado metálico e carmesim</small>
+                  </span>
+                  <span class="theme-check" aria-hidden="true">✓</span>
+                </button>
+                <button class="theme-option" type="button" role="menuitemradio" data-theme-choice="light" aria-checked="false">
+                  <span class="theme-swatch" aria-hidden="true">
+                    <i style="background:#ffffff"></i><i style="background:#8a6318"></i><i style="background:#cc0c15"></i>
+                  </span>
+                  <span class="theme-option-copy">
+                    <strong>Claro</strong>
+                    <small>Fundo branco limpo com alto conforto de leitura</small>
+                  </span>
+                  <span class="theme-check" aria-hidden="true">✓</span>
+                </button>
+                <button class="theme-option" type="button" role="menuitemradio" data-theme-choice="contrast" aria-checked="false">
+                  <span class="theme-swatch" aria-hidden="true">
+                    <i style="background:#000000"></i><i style="background:#ffffff"></i><i style="background:#fde047"></i>
+                  </span>
+                  <span class="theme-option-copy">
+                    <strong>Alto Contraste</strong>
+                    <small>Preto puro, branco 100% e amarelo vivo</small>
+                  </span>
+                  <span class="theme-check" aria-hidden="true">✓</span>
+                </button>
+              </div>
+            </div>
+            <button class="ihc-btn" id="replayIntroBtn" title="Rever tela de boas-vindas" aria-label="Rever tela de boas-vindas">✦ Intro</button>
+          </div>
+
+          <span class="system-status"><i></i> SYSTEM READY · 6 MÓDULOS</span>
+          <div class="top-avatar" id="topAvatar" aria-hidden="true">ES</div>
+        </div>
+      </header>
+
+      <section class="page-content" id="pageContent" tabindex="-1"></section>
+
+      <!-- Rodapé Arquitetônico Inspirado no Modelo ROG Edition -->
+      <footer class="rog-footer" aria-label="Rodapé do MATRIZANDO">
+        <div class="rog-footer-inner">
+          <nav class="rog-footer-crumb" aria-label="Caminho de navegação">
+            <span class="rog-footer-emblem" aria-hidden="true">
+              <svg viewBox="0 0 28 20" width="22" height="16" fill="none">
+                <path d="M2 15L9 4h5l-4.5 7.5H20L26 5v10H2Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <span class="rog-crumb-sep" aria-hidden="true">›</span>
+            <button type="button" class="rog-crumb-link" data-page="inicio">MATRIZANDO LAB</button>
+            <span class="rog-crumb-sep" aria-hidden="true">›</span>
+            <button type="button" class="rog-crumb-link" data-page="laboratorio">ÁLGEBRA LINEAR</button>
+            <span class="rog-crumb-sep" aria-hidden="true">›</span>
+            <span class="rog-crumb-current" id="footerBreadcrumbPage">VISÃO GERAL</span>
+          </nav>
+
+          <div class="rog-footer-main">
+            <div class="rog-footer-links" role="navigation" aria-label="Links rápidos">
+              <button type="button" data-page="inicio">SOBRE O MATRIZANDO</button>
+              <button type="button" data-page="criptografia">CRIPTOGRAFIA</button>
+              <button type="button" data-page="laboratorio">LABORATÓRIO</button>
+              <button type="button" data-page="aprendizagem">APRENDIZAGEM</button>
+              <button type="button" data-page="desafios">ARENA</button>
+            </div>
+
+            <div class="rog-footer-subscribe">
+              <label class="rog-subscribe-title" for="footerEmailInput">OBTENHA NOVOS DESAFIOS, MATERIAIS E ATUALIZAÇÕES</label>
+              <form class="rog-subscribe-form" id="footerSubscribeForm">
+                <input id="footerEmailInput" type="email" placeholder="Insira o endereço de e-mail" autocomplete="email" required>
+                <button type="submit">INSCREVA-SE</button>
+              </form>
+
+              <div class="rog-social-row" aria-label="Canais da comunidade">
+                <a href="#inicio" data-footer-social="Comunidade" aria-label="Comunidade MATRIZANDO" title="Comunidade">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm1 14.93V13h2.2l.35-2.6H13V8.76c0-.75.21-1.26 1.29-1.26h1.38V5.17A18 18 0 0 0 13.66 5c-2 0-3.36 1.22-3.36 3.45v1.95H8.07V13h2.23v3.93A7.92 7.92 0 0 1 12 17a8.6 8.6 0 0 1 1-.07Z"/></svg>
+                </a>
+                <a href="#inicio" data-footer-social="X / Updates" aria-label="Atualizações no X" title="X / Updates">
+                  <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor"><path d="M18.244 3H21l-6.56 7.5L22 21h-6.17l-4.83-6.32L5.48 21H2.72l7.02-8.02L2 3h6.32l4.36 5.77L18.244 3Zm-1.08 16.2h1.7L7.12 4.7H5.3l11.864 14.5Z"/></svg>
+                </a>
+                <a href="#inicio" data-footer-social="Instagram" aria-label="Instagram" title="Instagram">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+                </a>
+                <a href="#inicio" data-footer-social="YouTube Aulas" aria-label="Aulas no YouTube" title="YouTube">
+                  <svg viewBox="0 0 24 24" width="19" height="19" fill="currentColor"><path d="M21.6 7.2a2.7 2.7 0 0 0-1.9-1.9C18 4.8 12 4.8 12 4.8s-6 0-7.7.5a2.7 2.7 0 0 0-1.9 1.9A28.4 28.4 0 0 0 2 12a28.4 28.4 0 0 0 .4 4.8 2.7 2.7 0 0 0 1.9 1.9c1.7.5 7.7.5 7.7.5s6 0 7.7-.5a2.7 2.7 0 0 0 1.9-1.9A28.4 28.4 0 0 0 22 12a28.4 28.4 0 0 0-.4-4.8ZM10 15.2V8.8L15.6 12 10 15.2Z"/></svg>
+                </a>
+                <a href="#inicio" data-footer-social="GitHub Lab" aria-label="Código no GitHub" title="GitHub">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34a2.65 2.65 0 0 0-1.1-1.46c-.9-.62.07-.6.07-.6a2.1 2.1 0 0 1 1.53 1.03 2.13 2.13 0 0 0 2.91.83 2.13 2.13 0 0 1 .63-1.34c-2.22-.25-4.56-1.11-4.56-4.94a3.87 3.87 0 0 1 1.03-2.69 3.6 3.6 0 0 1 .1-2.65s.84-.27 2.75 1.02a9.48 9.48 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02a3.6 3.6 0 0 1 .1 2.65 3.87 3.87 0 0 1 1.03 2.69c0 3.84-2.34 4.68-4.57 4.93a2.39 2.39 0 0 1 .68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="rog-footer-divider" aria-hidden="true"></div>
+
+          <div class="rog-footer-bottom">
+            <div class="rog-locale">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a13.5 13.5 0 0 1 0 18M12 3a13.5 13.5 0 0 0 0 18"/></svg>
+              <span>Brasil/Português</span>
+            </div>
+
+            <div class="rog-legal-links">
+              <button type="button" data-footer-info="Política de Privacidade: seu progresso fica salvo apenas localmente no seu navegador.">POLÍTICA DE PRIVACIDADE</button>
+              <button type="button" data-footer-info="Informações Legais: projeto educacional interativo de Álgebra Linear — MATRIZANDO 2026.">INFORMAÇÕES LEGAIS</button>
+              <button type="button" id="footerReplayIntro">TELA DE BOAS-VINDAS</button>
+              <span class="rog-copyright">© 2026 MATRIZANDO LAB. TODOS OS DIREITOS RESERVADOS.</span>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <!-- Trilha vertical técnica lateral (estilo ROG Edition) + Botão voltar ao topo -->
+  <div class="rog-side-rail" aria-hidden="true">
+    <span class="rog-side-rail-code">26.07.29.LN · 12 · 28 · 17.3E</span>
+    <span class="rog-side-rail-title">MATRIZANDO EDITION 26</span>
+  </div>
+  <button type="button" class="rog-scroll-top" id="scrollTopBtn" aria-label="Voltar ao topo" title="Voltar ao topo">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 15l-6-6-6 6"/></svg>
+  </button>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <!-- Agentes Pedagógicos Imersivos -->
+  <section class="tutor-widget" id="tutorWidget" aria-label="Mentores virtuais MATRIZANDO">
+    <div class="tutor-panel" id="tutorPanel" hidden>
+      <div class="tutor-panel-head" id="tutorDragHead" title="Arraste para mover pela tela">
+        <span class="tutor-drag-grip" aria-hidden="true">⋮⋮</span>
+        <div class="tutor-avatar" id="agentPanelAvatar">M</div>
+        <div class="tutor-head-meta">
+          <strong id="agentPanelName">Professor Matriz</strong>
+          <small id="agentPanelRole">Mentor Principal de Álgebra Linear</small>
+        </div>
+        <button class="tutor-close" id="tutorClose" type="button" aria-label="Fechar painel do mentor">×</button>
+      </div>
+
+      <div class="agent-switcher" role="tablist" aria-label="Escolher especialista">
+        <button class="agent-switch-btn active" data-agent="matriz" role="tab" aria-selected="true">✦ Prof. Matriz</button>
+        <button class="agent-switch-btn" data-agent="vetor" role="tab" aria-selected="false">◇ Dra. Vetor</button>
+        <button class="agent-switch-btn" data-agent="cipher" role="tab" aria-selected="false">⌑ Agente Cipher</button>
+      </div>
+
+      <div class="tutor-chat-log" id="tutorChatLog" aria-live="polite"></div>
+
+      <div class="tutor-actions" id="tutorQuickPrompts">
+        <button data-tutor="analyze">Analisar minha tela</button>
+        <button data-tutor="concept">Explicar conceito</button>
+        <button data-tutor="guide">Guiar passo a passo</button>
+      </div>
+
+      <form class="tutor-input-row" id="tutorForm">
+        <label class="skip-link" for="tutorInput">Pergunte ao professor</label>
+        <input id="tutorInput" type="text" placeholder="Pergunte algo ao mentor..." autocomplete="off">
+        <button type="submit">Enviar</button>
+      </form>
+    </div>
+
+    <button class="tutor-launch" id="tutorLaunch" type="button" aria-expanded="false" aria-controls="tutorPanel" title="Clique para abrir ou arraste para mover pela tela">
+      <span class="tutor-drag-grip" aria-hidden="true">⋮⋮</span>
+      <span class="tutor-launch-icon" id="tutorLaunchIcon">✦</span>
+      <span id="tutorLaunchLabel">Prof. Matriz ao lado</span>
+      <span class="tutor-online" aria-hidden="true"></span>
+    </button>
+  </section>
+</body>
+</html>

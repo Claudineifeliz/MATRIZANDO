@@ -1,0 +1,322 @@
+/* ==========================================================================
+   MATRIZANDO — Design Tokens (ROG Obsidian, Claro Acadêmico e Alto Contraste)
+   ========================================================================== */
+
+:root {
+  --bg: #060607;
+  --bg-elevated: rgba(14, 14, 17, 0.92);
+  --sidebar: #09090b;
+  --sidebar-gradient: linear-gradient(180deg, #0e0e11 0%, #09090b 58%, #050506 100%);
+  --sidebar-shadow: 6px 0 32px rgba(0, 0, 0, 0.52);
+  --topbar-shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
+  --panel: rgba(18, 18, 21, 0.88);
+  --panel-alt: #141418;
+  --panel-hover: #1d1d23;
+  --input-bg: #08080a;
+
+  --surface-card-grad: linear-gradient(155deg, rgba(22, 22, 26, 0.95), rgba(12, 12, 14, 0.98));
+  --surface-pill: radial-gradient(60% 100% at 50% 0%, rgba(240, 210, 144, 0.18) 0%, transparent 70%), rgba(16, 16, 20, 0.92);
+  --surface-pill-inset: inset 0 1px 0 rgba(240, 210, 144, 0.42);
+  --toggle-btn-bg: linear-gradient(180deg, rgba(216, 179, 106, 0.16), rgba(14, 14, 17, 0.92));
+  --matrix-card-bg: rgba(12, 12, 15, 0.92);
+  --track-bg: rgba(255, 255, 255, 0.12);
+  --tutor-panel-bg: rgba(14, 14, 17, 0.96);
+  --scroll-btn-bg: rgba(110, 110, 120, 0.42);
+
+  --line: rgba(255, 255, 255, 0.12);
+  --border-subtle: rgba(255, 255, 255, 0.22);
+  --line-strong: rgba(216, 179, 106, 0.42);
+  --line-gold: rgba(216, 179, 106, 0.64);
+
+  --text: #ffffff;
+  --text-secondary: #d4d4d9;
+  --muted: #9a9aa3;
+  --subtle: #787883;
+
+  /* Paleta ROG Edition 20: Dourado Metálico + Vermelho Carmesim + Titânio */
+  --gold: #d8b36a;
+  --gold-bright: #f0d290;
+  --gold-soft: rgba(216, 179, 106, 0.14);
+  --rog-red: #e10e17;
+  --rog-red-bright: #ff2530;
+  --rog-red-soft: rgba(225, 14, 23, 0.16);
+
+  /* Mapeamento semântico usado pelos 6 módulos */
+  --cyan: #e0bc72;
+  --cyan-soft: rgba(224, 188, 114, 0.14);
+  --magenta: #e10e17;
+  --magenta-soft: rgba(225, 14, 23, 0.15);
+  --blue: #c8ccd6;
+  --violet: #f04850;
+  --violet-soft: rgba(240, 72, 80, 0.15);
+  --green: #4ade80;
+  --green-soft: rgba(74, 222, 128, 0.14);
+  --amber: #f2cb72;
+  --amber-soft: rgba(242, 203, 114, 0.15);
+  --coral: #ff3b47;
+  --coral-soft: rgba(255, 59, 71, 0.16);
+  --focus-ring: #f0d290;
+
+  --neon-glow-cyan: 0 0 24px rgba(216, 179, 106, 0.22);
+  --neon-glow-magenta: 0 0 24px rgba(225, 14, 23, 0.28);
+
+  --font: 'Inter', system-ui, -apple-system, sans-serif;
+  --display: 'Barlow Condensed', 'Rajdhani', system-ui, sans-serif;
+  --tech: 'Rajdhani', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --scale: 1;
+
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --shadow-sm: 0 6px 22px rgba(0, 0, 0, 0.45);
+  --shadow-md: 0 16px 40px rgba(0, 0, 0, 0.62);
+  --shadow-lg: 0 24px 64px rgba(0, 0, 0, 0.80);
+}
+
+[data-theme="light"] {
+  --bg: #f3f4f7;
+  --bg-elevated: rgba(255, 255, 255, 0.95);
+  --sidebar: #ffffff;
+  --sidebar-gradient: linear-gradient(180deg, #ffffff 0%, #f7f8fb 100%);
+  --sidebar-shadow: 4px 0 22px rgba(15, 16, 24, 0.06);
+  --topbar-shadow: 0 4px 18px rgba(15, 16, 24, 0.06);
+  --panel: #ffffff;
+  --panel-alt: #f6f7fa;
+  --panel-hover: #eceef4;
+  --input-bg: #f8f9fc;
+
+  --surface-card-grad: linear-gradient(155deg, #ffffff 0%, #f3f4f8 100%);
+  --surface-pill: linear-gradient(180deg, #ffffff 0%, #f1f3f8 100%);
+  --surface-pill-inset: inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  --toggle-btn-bg: linear-gradient(180deg, #ffffff 0%, #f0f2f7 100%);
+  --matrix-card-bg: #ffffff;
+  --track-bg: #dfe3ec;
+  --tutor-panel-bg: #ffffff;
+  --scroll-btn-bg: rgba(17, 18, 24, 0.82);
+
+  --line: #d9dde7;
+  --border-subtle: #c2c8d6;
+  --line-strong: #b08835;
+  --line-gold: #9a7424;
+
+  --text: #111319;
+  --text-secondary: #2c303c;
+  --muted: #4b5060;
+  --subtle: #646a7d;
+
+  /* Ouro escuro + Carmesim de alto contraste para leitura em fundo branco */
+  --gold: #8a6318;
+  --gold-bright: #6f4e0e;
+  --gold-soft: rgba(138, 99, 24, 0.11);
+  --rog-red: #c80e17;
+  --rog-red-bright: #e10e17;
+  --rog-red-soft: rgba(200, 14, 23, 0.10);
+
+  --cyan: #8a6318;
+  --cyan-soft: rgba(138, 99, 24, 0.11);
+  --magenta: #c80e17;
+  --magenta-soft: rgba(200, 14, 23, 0.10);
+  --blue: #2f3a52;
+  --violet: #c80e17;
+  --violet-soft: rgba(200, 14, 23, 0.10);
+  --green: #047857;
+  --green-soft: rgba(4, 120, 87, 0.11);
+  --amber: #9a6006;
+  --amber-soft: rgba(154, 96, 6, 0.12);
+  --coral: #be123c;
+  --coral-soft: rgba(190, 18, 60, 0.10);
+  --focus-ring: #c80e17;
+
+  --neon-glow-cyan: 0 4px 16px rgba(138, 99, 24, 0.18);
+  --neon-glow-magenta: 0 4px 16px rgba(200, 14, 23, 0.18);
+
+  --shadow-sm: 0 2px 10px rgba(15, 16, 24, 0.06);
+  --shadow-md: 0 8px 24px rgba(15, 16, 24, 0.09);
+  --shadow-lg: 0 18px 44px rgba(15, 16, 24, 0.16);
+}
+
+[data-theme="contrast"] {
+  --bg: #000000;
+  --bg-elevated: #000000;
+  --sidebar: #000000;
+  --sidebar-gradient: linear-gradient(180deg, #000000 0%, #000000 100%);
+  --sidebar-shadow: none;
+  --topbar-shadow: none;
+  --panel: #0a0a0a;
+  --panel-alt: #141414;
+  --panel-hover: #222222;
+  --input-bg: #000000;
+
+  --surface-card-grad: #0d0d0d;
+  --surface-pill: #141414;
+  --surface-pill-inset: none;
+  --toggle-btn-bg: #141414;
+  --matrix-card-bg: #000000;
+  --track-bg: #36363c;
+  --tutor-panel-bg: #080808;
+  --scroll-btn-bg: #000000;
+
+  --line: #71717a;
+  --border-subtle: #a1a1aa;
+  --line-strong: #fde047;
+  --line-gold: #fde047;
+
+  --text: #ffffff;
+  --text-secondary: #f4f4f5;
+  --muted: #e4e4e7;
+  --subtle: #d4d4d8;
+
+  --gold: #fde047;
+  --gold-bright: #fef08a;
+  --gold-soft: rgba(253, 224, 71, 0.18);
+  --rog-red: #ff2b37;
+  --rog-red-bright: #ff4d58;
+  --rog-red-soft: rgba(255, 43, 55, 0.22);
+
+  --cyan: #fde047;
+  --cyan-soft: rgba(253, 224, 71, 0.18);
+  --magenta: #ff2b37;
+  --magenta-soft: rgba(255, 43, 55, 0.22);
+  --blue: #ffffff;
+  --violet: #ff6b74;
+  --violet-soft: rgba(255, 107, 116, 0.20);
+  --green: #4ade80;
+  --green-soft: rgba(74, 222, 128, 0.20);
+  --amber: #fde047;
+  --amber-soft: rgba(253, 224, 71, 0.20);
+  --coral: #ff6b74;
+  --coral-soft: rgba(255, 107, 116, 0.22);
+  --focus-ring: #fde047;
+
+  --neon-glow-cyan: none;
+  --neon-glow-magenta: none;
+  --shadow-sm: none;
+  --shadow-md: none;
+  --shadow-lg: 0 0 0 2px #fde047;
+}
+
+* {
+  box-sizing: border-box;
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-strong) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--gold), var(--rog-red));
+  border-radius: 99px;
+  opacity: 0.7;
+}
+
+html {
+  font-size: calc(15px * var(--scale));
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(ellipse 68% 42% at 50% 0%, rgba(216, 179, 106, 0.11) 0%, transparent 62%),
+    radial-gradient(ellipse 52% 38% at 88% 24%, rgba(225, 14, 23, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 58% 45% at 22% 88%, rgba(216, 179, 106, 0.07) 0%, transparent 64%),
+    linear-gradient(rgba(255, 255, 255, 0.028) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 100% 100%, 64px 64px, 64px 64px;
+  background-attachment: fixed;
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 0.94rem;
+  line-height: 1.58;
+  -webkit-font-smoothing: antialiased;
+}
+
+body.intro-active {
+  overflow: hidden;
+}
+
+[data-theme="light"] body,
+[data-theme="contrast"] body {
+  background-image: none;
+}
+
+button, select, input, textarea, a {
+  font-family: inherit;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--focus-ring) !important;
+  outline-offset: 2px !important;
+}
+
+button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.skip-link {
+  position: fixed;
+  z-index: 1000;
+  top: 10px;
+  left: 10px;
+  transform: translateY(-200%);
+  background: var(--gold);
+  color: #09090b;
+  padding: 10px 16px;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: var(--shadow-md);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+.ihc-spotlight {
+  position: relative;
+  z-index: 45;
+  box-shadow: 0 0 0 3px var(--gold-bright), 0 0 34px rgba(216, 179, 106, 0.45) !important;
+  border-radius: var(--radius-md);
+  transition: box-shadow 0.25s ease;
+}
+
+/* Barras diagonais douradas assinatura ROG (////) */
+.rog-slashes {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.rog-slashes i {
+  display: block;
+  width: 4px;
+  height: 11px;
+  background: linear-gradient(180deg, var(--gold-bright), var(--gold));
+  transform: skewX(-28deg);
+  border-radius: 1px;
+  box-shadow: 0 0 8px rgba(216, 179, 106, 0.4);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
